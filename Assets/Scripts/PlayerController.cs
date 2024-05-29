@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float timeBetweenBullets = 0.5f;
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform firePosition;
@@ -19,13 +19,18 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        Move();
         Look();
         Attack();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private void OnMove(InputValue inputValue)
@@ -38,7 +43,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y); 
 
-        transform.position += direction.normalized * moveSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + direction.normalized * moveSpeed * Time.deltaTime);
+
+        //transform.position += direction.normalized * moveSpeed * Time.deltaTime;
     }
 
     private void OnLook(InputValue value)
