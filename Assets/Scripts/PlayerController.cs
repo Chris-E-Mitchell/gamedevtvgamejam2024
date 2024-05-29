@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private Camera mainCamera;
+    private Animator animator;
 
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -44,6 +46,15 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y); 
 
         rb.MovePosition(transform.position + direction.normalized * moveSpeed * Time.deltaTime);
+
+        if (direction != Vector3.zero)
+        {
+            animator.SetBool("Moving", true);
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
+        }
 
         //transform.position += direction.normalized * moveSpeed * Time.deltaTime;
     }
