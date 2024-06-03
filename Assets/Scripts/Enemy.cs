@@ -3,14 +3,18 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private NavMeshAgent agent;
     private PlayerController playerController;
+    private ZombieSpawn zombieSpawn;
+    private StartScreen startScreen;
+    private NavMeshAgent agent;
     private Animator animator;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         playerController = FindFirstObjectByType<PlayerController>();
+        zombieSpawn = FindFirstObjectByType<ZombieSpawn>();
+        startScreen = FindFirstObjectByType<StartScreen>();
+        agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
 
@@ -19,6 +23,10 @@ public class Enemy : MonoBehaviour
         if (playerController != null)
         {
             agent.destination = playerController.transform.position;
+        }
+        else
+        {
+            agent.isStopped = true;
         }
 
         if (agent.velocity != Vector3.zero)
@@ -37,7 +45,10 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Enemy caught player!");
-            Destroy(other.gameObject);
+            playerController.Die();
+            zombieSpawn.SetSpawning(false);
+            startScreen.EndGame();
+
         }
     }
 }

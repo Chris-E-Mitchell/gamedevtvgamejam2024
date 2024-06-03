@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba703678a4bd0a4dbccc806d0304ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 2739866797828354574, guid: eaf54b4c3a3b5674d93acbe6f0511286, type: 3}
+  zombieSpawn: {fileID: 5466938619843862174, guid: a9c0686bc8dc9ee478ff43010fae280e, type: 3}
 --- !u!95 &1774106325107040772
 Animator:
   serializedVersion: 7

@@ -7,6 +7,7 @@ public class ZombieSpawn : MonoBehaviour
     [SerializeField] private float spawnTime = 2f;
 
     private float spawnTimer;
+    private bool isSpawning = true;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class ZombieSpawn : MonoBehaviour
 
     private void Update()
     {
+        if (!isSpawning) { return; }
+        
         spawnTimer -= Time.deltaTime;
 
         if (spawnTimer < 0)
@@ -32,5 +35,10 @@ public class ZombieSpawn : MonoBehaviour
         int enemy = Random.Range(0, enemies.Length);
 
         Instantiate(enemies[enemy], spawners[spawner].position, Quaternion.identity);
+    }
+
+    public void SetSpawning(bool isSpawning)
+    {
+        this.isSpawning = isSpawning;
     }
 }

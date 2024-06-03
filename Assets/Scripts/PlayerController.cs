@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private bool fired = false;
     private float attackTimer = 0f;
 
+    public bool FreezeControls = false;
+
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (FreezeControls) { return; }
+        
         Look();
         Attack();
     }
@@ -109,6 +113,10 @@ public class PlayerController : MonoBehaviour
                 fired = false;
             }
         }
+    }
 
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
