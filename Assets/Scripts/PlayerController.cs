@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
     private bool isAttacking = false;
+    private bool fired = false;
     private float attackTimer = 0f;
 
     private void Awake()
@@ -89,18 +90,25 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Attack()
-    {
+    {    
         if (isAttacking)
         {
             if (attackTimer == 0f)
             {
                 Instantiate(projectile, firePosition.position, transform.rotation);
+                fired = true;
             }
+        }
+
+        if (fired)
+        {
             attackTimer += Time.deltaTime;
             if (attackTimer >= timeBetweenBullets)
             {
                 attackTimer = 0f;
+                fired = false;
             }
         }
+
     }
 }
